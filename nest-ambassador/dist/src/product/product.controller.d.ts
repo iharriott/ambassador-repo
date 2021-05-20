@@ -17,8 +17,10 @@ export declare class ProductController {
     frontend(): Promise<any[]>;
     backend(request: Request): Promise<{
         data: Product[];
-        total: number;
-        page: number;
-        last_page: number;
+        meta: {
+            total: number;
+            page: number;
+            last_page: number;
+        };
     }>;
 }

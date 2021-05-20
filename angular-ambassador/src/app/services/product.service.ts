@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { PaginatedProducts } from '../interfaces/paginated-products';
 import { Product } from '../interfaces/product';
 
 
@@ -15,12 +16,25 @@ export class ProductService {
   }
 
   //lazy loading
-  backend(filter?: { page?: number }): Observable<{ data: Product[] }> {
+  backend(filters?: { page?: number, s?: string, sort?: string }): Observable<PaginatedProducts> {
     let params = new HttpParams();
 
-    if (filter?.page) {
-      params = params.set('page', filter.page.toString());
+    if (filters?.page) {
+      params = params.set('page', filters.page.toString());
     }
-    return this.http.get<{ data: Product[] }>(this.endpoint + '/backend', { params });
+
+    if (filters?.s) {
+      params = params.set('s', filters.s);
+    }
+
+    if (filters?.sort) {
+      params = params.set('sort', filters.sort);
+    }
+
+    return this.http.get<PaginatedProducts>(this.endpoint + '/backend', { params });
+  }
+
+  frontend(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.endpoint}/frontend`);
   }
 }

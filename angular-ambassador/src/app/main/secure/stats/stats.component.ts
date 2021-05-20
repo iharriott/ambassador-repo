@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 import { StatsService } from '../../../../app/services/stats.service';
 
 @Component({
@@ -17,6 +18,10 @@ export class StatsComponent implements OnInit {
         this.links = stats;
       }
     )
+  }
+
+  checkoutLink(code: string): string {
+    return `${environment.checkout_url}/${code}`
   }
 
 }

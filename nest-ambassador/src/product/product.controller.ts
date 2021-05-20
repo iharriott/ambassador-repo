@@ -92,12 +92,14 @@ export class ProductController {
         const total = products.length;
 
         const data = products.slice((page - 1) * perPage, page * perPage);
+        const meta = { total, page, last_page: Math.ceil(total / perPage) };
 
         return {
             data,
-            total,
-            page,
-            last_page: Math.ceil(total / perPage)
+            meta
+            //total,
+            // page,
+            //last_page: Math.ceil(total / perPage)
         };
     }
 }
