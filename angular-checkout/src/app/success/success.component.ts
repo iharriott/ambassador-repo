@@ -14,7 +14,6 @@ export class SuccessComponent implements OnInit {
 
   ngOnInit(): void {
     const source = this.route.snapshot.queryParams.source;
-
     this.orderService.confirm({ source }).subscribe(res => console.log(res));
   }
 
